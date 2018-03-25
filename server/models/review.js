@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     comment: DataTypes.STRING,
     rating: DataTypes.ENUM(1,2,3,4,5),
     UserId: DataTypes.INTEGER,
-    ReviewId: DataTypes.INTEGER
+    BookId: DataTypes.INTEGER
   }, {});
   reviews.associate = function(models) {
     // associations can be defined here

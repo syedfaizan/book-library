@@ -4,7 +4,8 @@
     "password": "admin",
     "database": "digital_library",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "secret": "HungryGreenPanda#123$"
   },
   "test": {
     "username": "root",

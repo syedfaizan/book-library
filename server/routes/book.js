@@ -9,7 +9,9 @@ router.post('/',(req, res, next)=> {
 });
 
 router.get('/',(req, res, next ) => {
-    return bookController.list()
+    let queryParams = req.query;
+    queryParams = Object.assign( {UserId: req.user.id }, queryParams);
+    return bookController.list(queryParams)
         .then( res.preparePayload )
         .catch(next);        
 })

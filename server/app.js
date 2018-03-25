@@ -1,13 +1,13 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var models = require('./models');
+var passport = require("passport");
+const jwtStratergy = require('./middlewares/passport');
 
-// var indexRouter = require('./routes/index');
-var booksRouter = require('./routes/book');
+jwtStratergy(passport);
 
 var app = express();
 
@@ -15,9 +15,9 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(passport.initialize());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.preparePayload = payload => {
     let defaulSuccesstResponse = {
       data: payload,
@@ -33,20 +33,14 @@ app.use(function(req, res, next) {
     }
 
     if(Array.isArray(payload)){
-      return res.send(Object.assign(defaulSuccesstResponse, {data: {items: payload}}));
+      return res.send(Object.assign(defaulSuccesstResponse, {data: {items: payload}, length: payload.length}));
     }
     return res.send(defaulSuccesstResponse);
   }
   next();
 });
 
-app.use('/api/books', booksRouter);
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-
+require('./routes')(app);
 
 // error handler
 app.use(function (err, req, res, next) {

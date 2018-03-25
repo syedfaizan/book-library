@@ -1,12 +1,19 @@
 var models = require('../models');
 const Book = models.Book;
+const _ = require('lodash');
+
 
 var temp = {
-    create : (book) => {
-        return Book.create(book);
+    create : (body) => {
+        let bookBody = _.pick(body, ['title', 'ISBN', 'UserId']);
+        return Book.create(bookBody);
     },
-    list: () => {
-        return Book.findAll();
+    list: (params) => {
+        let query = _.pick(params, ['title', 'ISBN', 'UserId']);
+        return Book.findAll({
+            where: query,
+            include: 'User'
+        });
     },
     read: (id) => {
         return Book.findById(id);
