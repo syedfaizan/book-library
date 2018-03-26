@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 router.post('/',(req, res, next)=> {
     let body = req.body;
+    body.UserId = req.user.id;
     return bookController.create(body)
         .then( res.preparePayload )
         .catch(next);
@@ -10,7 +11,6 @@ router.post('/',(req, res, next)=> {
 
 router.get('/',(req, res, next ) => {
     let queryParams = req.query;
-    queryParams = Object.assign( {UserId: req.user.id }, queryParams);
     return bookController.list(queryParams)
         .then( res.preparePayload )
         .catch(next);        

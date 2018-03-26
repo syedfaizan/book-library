@@ -45,7 +45,7 @@ require('./routes')(app);
 // error handler
 app.use(function (err, req, res, next) {
   console.error(err.stack)
-  res.status(500).send(err.message);
+  res.status(500).send({ message: err.message, errors: err.errors });
 })
 
 module.exports = app;

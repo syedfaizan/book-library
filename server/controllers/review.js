@@ -14,6 +14,14 @@ var temp = {
             where: query,
             include: ['User', 'Book']
         });
+    },
+    fetch: (BookId) => {
+        return Review.findAll({
+            where: {
+                BookId
+            },
+            include: ['User']
+        })
     }
 } 
 

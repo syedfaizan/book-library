@@ -26,7 +26,7 @@ export default class Auth extends Component {
     const { redirect } = this.state;
 
     if( redirect ){
-      return <Redirect to='/Books'/>;
+      return <Redirect to='/Dashboard'/>;
     }
     return (
       
@@ -36,7 +36,6 @@ export default class Auth extends Component {
               <input className="form-control" type="text" onChange={(e) => {this.handleChange(e)}}/>
               <br/>
               <button className="form-control btn btn-primary" onClick={this.handleFormSubmission.bind(this)}>Submit</button>
-              <p>current Username: {this.state.username}</p>
           </div>
       </div>
     );

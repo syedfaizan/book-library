@@ -16,7 +16,12 @@ var temp = {
         });
     },
     read: (id) => {
-        return Book.findById(id);
+        return Book.findOne({
+            where: {
+                id
+            },
+            include: 'User'
+        });
     },
     remove: (id) => {
         return Book.destroy({
