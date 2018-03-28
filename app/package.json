@@ -5,7 +5,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jquery": "^3.3.1",
+    "mock-local-storage": "^1.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-rating": "^1.1.0",
@@ -17,5 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "devDependencies": {}
 }

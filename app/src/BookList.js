@@ -1,26 +1,30 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import http from '../src/utils/axios';
 
 export default class BookList extends Component {
     constructor(props) {
         let session = sessionStorage.getItem('userSession');
-        if(!session){
+        if (!session) {
             return window.location.href = '/';
         }
         super(props);
         this.state = {
             books: []
-        }
-    }
-    componentDidMount(){
-        http.get('/book')
-            .then( res => {
+        };
+    };
+    componentDidMount() {
+        return http.get('/book')
+            .then(res => {
                 let books = res.data.items;
-                this.setState({books});
-            })
-    }
-  render() {
-    return (
+                this.setState({
+                    books
+                });
+            });
+    };
+    render() {
+        return (
         <div className="container ">
             <h3 className="text-center">Book Catalog</h3>
             <hr/>
@@ -45,6 +49,6 @@ export default class BookList extends Component {
                 <a className="btn btn-primary" href="/create/book">+ Add Book</a>
             </div>
         </div>
-    );
-  }
-}
+        );
+    };
+};

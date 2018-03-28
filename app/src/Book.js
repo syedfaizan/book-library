@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import http  from './utils/axios';
+import React, {
+    Component
+} from 'react';
+import http from './utils/axios';
 import Rating from 'react-rating';
 
 
 export default class Book extends Component {
-    constructor(props){
+    constructor(props) {
         let session = sessionStorage.getItem('userSession');
-        if(!session){
-            return window.location.href = '/';
+        if (!session) {
+            window.location.href = '/';
         }
         super(props);
         this.state = {
@@ -21,47 +23,62 @@ export default class Book extends Component {
                 comment: null,
                 BookId: this.props.match.params.id
             }
-        }
-    }
-    componentDidMount(){
+        };
+    };
+    componentDidMount() {
         let dataPromises = [];
-        
+
         dataPromises.push(http.get(`/book/${this.state.BookId}`));
         dataPromises.push(http.get(`/review/${this.state.BookId}`));
-        
-        Promise.all(dataPromises)
-            .then((responses)=>{
-                this.setState({Book: responses[0].data});
-                this.setState({Reviews: responses[1].data.items});
-                this.setState({Author: this.state.Book.User});
-            })
-    }
+
+        return Promise.all(dataPromises)
+            .then((responses) => {
+                this.setState({
+                    Book: responses[0].data
+                });
+                this.setState({
+                    Reviews: responses[1].data.items
+                });
+                this.setState({
+                    Author: this.state.Book.User
+                });
+            });
+    };
     handleAddCommentClick(event) {
-        this.setState({showCommentForm: !this.state.showCommentForm});
-    }
-    handleRatingChange (rate) {
         this.setState({
-            newReview : Object.assign({}, this.state.newReview , { rating: rate})
-        })
-    }
-    handleCommentChange (event) {
+            showCommentForm: !this.state.showCommentForm
+        });
+    };
+
+    handleRatingChange(rate) {
         this.setState({
-            newReview : Object.assign({}, this.state.newReview, { comment: event.target.value})
+            newReview: Object.assign({}, this.state.newReview, {
+                rating: rate
+            })
         })
-        
-    }
-    handleButtonClick (event) {
+    };
+
+    handleCommentChange(event) {
+        this.setState({
+            newReview: Object.assign({}, this.state.newReview, {
+                comment: event.target.value
+            })
+        });
+    };
+
+    handleButtonClick(event) {
         let newrating = this.state.newReview;
         newrating.rating = newrating.rating + '';
         http.post('/review', newrating)
-            .then( response => {
+            .then(response => {
                 window.location.reload();
             })
-    }
+    };
+    
     render () {
         const numberOfReviews = this.state.Reviews.length;
         return (
-            <div className="container paddingTop">
+            <div className="container marginTop">
                 <h5>ISBN: {this.state.Book.ISBN}</h5><br/>
                 <h1>Book Title: {this.state.Book.title}</h1><br/>
                 <h6>Author Username: {this.state.Author && this.state.Author.username}</h6>
@@ -75,7 +92,7 @@ export default class Book extends Component {
                                     <div className="row" >
                                         <div className="col-md-4"><b>{review.User.username}</b></div>
                                         <div className="col-md-4"><Rating initialRating={parseInt(review.rating)} readonly/></div>
-                                        <div className="col-md-4">{review.comment}</div>
+                                        <div className="col-md-4">"{review.comment}"</div>
                                     </div>
                                 </div>
                             )
@@ -103,6 +120,6 @@ export default class Book extends Component {
                         </div>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};

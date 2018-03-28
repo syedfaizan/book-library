@@ -6,30 +6,31 @@ export default class Dashboard extends Component {
     let session = sessionStorage.getItem('userSession');
     if(!session){
       return window.location.href = '/';
-    }
+    };
     super(props);
     this.state = {
       myBooks: [],
       myReviews: [],
-      UserId: JSON.parse(session).user.id
-    }
-  }
+      UserId: JSON.parse(session).user.id,
+      User: JSON.parse(session).user
+    };
+  };
   componentDidMount() {
     let dashboardDataPromises = [];
 
     dashboardDataPromises.push(http.get('book', {params: {UserId: this.state.UserId}}));
     dashboardDataPromises.push(http.get('review', {params: {UserId: this.state.UserId}}));
-    Promise.all(dashboardDataPromises)
+    return Promise.all(dashboardDataPromises)
       .then((responses)=>{
         this.setState({myBooks: responses[0].data.items});
         this.setState({myReviews: responses[1].data.items});
-      })
-  }
+      });
+  };
   render() {
     const books = this.state.myBooks;
     const reviews = this.state.myReviews;    
     return (
-      <div className="container paddingTop">
+      <div className="container marginTop">
         <div className="row">
           <div className="col-md-6">
             {books.length > 0 ?
@@ -98,9 +99,9 @@ export default class Dashboard extends Component {
         <div className="row">
           <a className="btn btn-primary col-md-5" href="/create/book">Add Book</a>
           <div className="col-md-2"></div>
-          <a className="btn btn-primary col-md-5" href="/book">Browse All Books</a>
+          <a className="btn btn-primary col-md-5" href="/books">Browse All Books</a>
         </div>
       </div>
     );
-  }
-}
+  };
+};

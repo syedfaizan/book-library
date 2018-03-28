@@ -1,12 +1,13 @@
-# UI for Digital library
+# API server for Digital library
 
 ### Prerequisites:
 - NodeJS +6 installed
+- PostGress installed and running
 
-### Install 
 ````sh
-$ cd app\
+$ cd server\
 $ npm install
+$ npm run migrate
 $ npm start
 ````
 
@@ -15,7 +16,6 @@ $ npm start
 ````sh
 $ npm test
 ````
-
 
 ###### Syed Faizan
 
