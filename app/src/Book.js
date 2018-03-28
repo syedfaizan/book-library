@@ -5,6 +5,10 @@ import Rating from 'react-rating';
 
 export default class Book extends Component {
     constructor(props){
+        let session = sessionStorage.getItem('userSession');
+        if(!session){
+            return window.location.href = '/';
+        }
         super(props);
         this.state = {
             BookId: this.props.match.params.id,
@@ -72,13 +76,12 @@ export default class Book extends Component {
                                         <div className="col-md-4"><b>{review.User.username}</b></div>
                                         <div className="col-md-4"><Rating initialRating={parseInt(review.rating)} readonly/></div>
                                         <div className="col-md-4">{review.comment}</div>
-                                        {numberOfReviews > 1 && <hr/>}
                                     </div>
                                 </div>
                             )
-
+                            
                         } )}
-                        <hr/>
+                        {numberOfReviews > 0 && <hr/>}
                         <div className="addReview">
                             <button className="btn btn-default" onClick={this.handleAddCommentClick.bind(this)}>Leave a Comment</button>
                             <br/>

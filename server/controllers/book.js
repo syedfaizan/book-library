@@ -28,7 +28,11 @@ var temp = {
             where: {
                 id
             }
-        });
+        })
+        .then( res => {
+            console.log(res);
+            return res;
+        })
     }
 } 
 

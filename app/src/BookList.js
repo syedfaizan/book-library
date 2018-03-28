@@ -3,6 +3,10 @@ import http from '../src/utils/axios';
 
 export default class BookList extends Component {
     constructor(props) {
+        let session = sessionStorage.getItem('userSession');
+        if(!session){
+            return window.location.href = '/';
+        }
         super(props);
         this.state = {
             books: []

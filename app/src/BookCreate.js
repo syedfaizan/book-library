@@ -40,7 +40,7 @@ export default class BookList extends Component {
     render() {
         let duplicateISBN = this.state.duplicateISBN;
         return (
-            <div className="container jumbotron">
+            <div className="container jumbotron paddingTop">
                 <div className="row">
                     <label className="col-md-4">Unique ISBN number</label>
                     <input className="form-control col-md-8 inputMargin" required="true" name="ISBN" onChange={this.handleISBNChange.bind(this)} placeholder="Enter ISBN"/>
@@ -54,7 +54,7 @@ export default class BookList extends Component {
                 </div>
                 <br/>
                 <div className="row">
-                    <button type="submit" className="btn btn-submit col-md-12" onClick={this.handleSubmit.bind(this)}>Submit</button>
+                    <button type="submit" className="btn btn-primary col-md-12" onClick={this.handleSubmit.bind(this)}>Submit</button>
                 </div>
             </div>
         );

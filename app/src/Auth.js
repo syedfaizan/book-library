@@ -7,7 +7,7 @@ export default class Auth extends Component {
     super(props);
     this.state = {
       username: null,
-      redirect: !!sessionStorage.getItem('userSession') ||false
+      redirect: !!sessionStorage.getItem('userSession') || false
     }
   }
   handleChange(event) {
@@ -15,7 +15,6 @@ export default class Auth extends Component {
     this.setState({username});
   }
   handleFormSubmission() {
-    console.log("pressed", this.state.username);
     http.post("/user", { username: this.state.username })
       .then( res => {
         sessionStorage.setItem('userSession', JSON.stringify(res.data));
@@ -29,11 +28,10 @@ export default class Auth extends Component {
       return <Redirect to='/Dashboard'/>;
     }
     return (
-      
-        <div className="container">
+        <div className="container paddingTop">
           <div className="jumbotron text-center">
               <h3>Enter User Name</h3>
-              <input className="form-control" type="text" onChange={(e) => {this.handleChange(e)}}/>
+              <input placeholder="eg: syedfaizan" className="form-control" type="text" onChange={(e) => {this.handleChange(e)}}/>
               <br/>
               <button className="form-control btn btn-primary" onClick={this.handleFormSubmission.bind(this)}>Submit</button>
           </div>
