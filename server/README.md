@@ -7,6 +7,7 @@
 ````sh
 $ cd server\
 $ npm install
+Create a new empty database named 'digital_library' using pgAdmin
 $ npm run migrate
 $ npm start
 ````
